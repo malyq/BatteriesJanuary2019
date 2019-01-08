@@ -4,7 +4,7 @@
 
 	<action name="myFirstSparkJob">        
 	<spark xmlns="uri:oozie:spark-action:0.1">
-            <job-tracker>${job_tracker}</job-tracker>
+            <job-tracker>${resourceManager}</job-tracker>
             <name-node>${name_node}</name-node>
            <!-- <prepare>
                <delete path="[PATH]"/>
@@ -24,11 +24,11 @@
             <mode>client</mode>
             <name>Spark Example</name>
             <class>com.revature.DriverYARN</class>
-            <jar>/home/cloudera/1811november05hadoop/spark/SparkWordCount/target/WordCountSpark.jar</jar> 
+            <jar>/home/raj_ops/malyq/BatteriesJanuary2019/Oozie/WordCountSpark.jar</jar> 
             <!-- <spark-opts>[SPARK-OPTIONS]</spark-opts> -->
     	    <!-- <arg>hdfs://localhost/HData/all-bible</arg> -->
-	    <arg>/user/cloudera/HData/all-bible</arg>
-            <arg>/home/cloudera/HOutput</arg>
+	    <arg>/user/raj_ops/HData/all-bible</arg>
+            <arg>/home/raj_ops/HOutput</arg>
 	    <arg>200</arg>
 		</spark>	
 		<ok to="end" />
