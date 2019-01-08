@@ -1,0 +1,46 @@
+
+<workflow-app name="spark-test" xmlns="uri:oozie:workflow:0.3">
+       <start to="myFirstSparkJob"/>
+
+	<action name="myFirstSparkJob">        
+	<spark xmlns="uri:oozie:spark-action:0.1">
+            <job-tracker>${job_tracker}</job-tracker>
+            <name-node>${name_node}</name-node>
+           <!-- <prepare>
+               <delete path="[PATH]"/>
+               ...
+               <mkdir path="[PATH]"/>
+               ...
+            </prepare>
+           <job-xml>[SPARK SETTINGS FILE]</job-xml>
+            <configuration>
+                <property>
+                    <name>[PROPERTY-NAME]</name>
+                    <value>[PROPERTY-VALUE]</value>
+                </property>
+                ...
+            </configuration>-->
+            <master>local[*]</master>
+            <mode>client</mode>
+            <name>Spark Example</name>
+            <class>com.revature.DriverYARN</class>
+            <jar>/home/cloudera/1811november05hadoop/spark/SparkWordCount/target/WordCountSpark.jar</jar> 
+            <!-- <spark-opts>[SPARK-OPTIONS]</spark-opts> -->
+    	    <!-- <arg>hdfs://localhost/HData/all-bible</arg> -->
+	    <arg>/user/cloudera/HData/all-bible</arg>
+            <arg>/home/cloudera/HOutput</arg>
+	    <arg>200</arg>
+		</spark>	
+		<ok to="end" />
+                <error to="kill" />
+       </action>
+
+        <!-- Kill Job Control Node -->
+        <kill name="kill">
+                <message>Oozie lab job terminated with errors.</message>
+        </kill>
+
+        <!-- End Job Control Node -->
+        <end name="end" />
+
+</workflow-app>
