@@ -6,13 +6,13 @@
 	<spark xmlns="uri:oozie:spark-action:0.1">
             <job-tracker>${resourceManager}</job-tracker>
             <name-node>${name_node}</name-node>
-           <!-- <prepare>
-               <delete path="[PATH]"/>
-               ...
+            <prepare>
+               <delete path="${name_node}/root/HOutput"/>
+              <!-- ...
                <mkdir path="[PATH]"/>
-               ...
+               ...-->
             </prepare>
-           <job-xml>[SPARK SETTINGS FILE]</job-xml>
+           <!-- <job-xml>[SPARK SETTINGS FILE]</job-xml>
             <configuration>
                 <property>
                     <name>[PROPERTY-NAME]</name>
@@ -21,14 +21,14 @@
                 ...
             </configuration>-->
             <master>local[*]</master>
-            <mode>client</mode>
+            <mode>cluster</mode>
             <name>Spark Example</name>
             <class>com.revature.DriverYARN</class>
-            <jar>/home/raj_ops/malyq/BatteriesJanuary2019/Oozie/WordCountSpark.jar</jar> 
-            <!-- <spark-opts>[SPARK-OPTIONS]</spark-opts> -->
+            <jar>${name_node}/user/root/HData/WordCountSpark.jar</jar> 
+            <spark-opts>--jars ${name_node}/user/root/HData/WordCountSpark.jar</spark-opts>
     	    <!-- <arg>hdfs://localhost/HData/all-bible</arg> -->
-	    <arg>/user/raj_ops/HData/all-bible</arg>
-            <arg>/home/raj_ops/HOutput</arg>
+	    <arg>${name_node}/user/root/HData/all-bible</arg>
+            <arg>${name_node}/user/root/HOutput</arg>
 	    <arg>200</arg>
 		</spark>	
 		<ok to="end" />
